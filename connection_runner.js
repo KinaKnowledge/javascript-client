@@ -35,24 +35,26 @@ const path=require('path');
 
 if (process.argv.length<3) {
     console.log("Connection Runner: please provide a json file as an argument that contains the following: ");
-    console.log(" {");
-    console.log('    "server_url": "https://fs.kinadata.com",');
-    console.log('    "user_name": "your_email_login",');
-    console.log('    "password": "your_password"');
-    console.log('    "upload_profile": "your_uploadprofile"');
-    console.log('    "private_key_file": /path/to/private_key.pem"');
-    console.log('    "pass_phrase_file": "/path/to/pass_phrase.txt"');
-    console.log('    "channels: [');
-    console.log('        {');
-    console.log('          "name": "sender_1",');
-    console.log('          "upload_profile": "Non Batch Classify",');
-    console.log('          "watch_directory": "/path/to/working/directory",');
-    console.log('          "complete_directory": "/path/to/sent/directory"');
-    console.log('          "packaging_profile": "packaging_profile_name"');
-    console.log('        }');
-    console.log('     ]');
-    console.log(" }");
-    console.log(" ");
+    console.log('{');
+    console.log('   "server_url": "https://fs.kinadata.com",');
+    console.log('   "user_name": "sample.email@myorg.org",');
+    console.log('   "password": "R@YuPhEd2A4c3_05",');
+    console.log('   "private_key_file": "/path/to/local/private_key.pem",');
+    console.log('   "pass_phrase_file": "/path/to/local/pass_phrase.txt",');
+    console.log('   "channels": [');
+    console.log('      {');
+    console.log('         "name": "sender_1",');
+    console.log('         "upload_profile": "From Scanner",');
+    console.log('         "send_directory": "/path/to/local/sending/directory"');
+    console.log('      },');
+    console.log('      {');
+    console.log('         "name": "receiver_1",');
+    console.log('         "packaging_profile": "Department Share Drive",');
+    console.log('         "grouping_id": "",');
+    console.log('         "receive_directory": "/path/to/local/receiving/directory"');
+    console.log('      }');
+    console.log('   ]');
+    console.log('}');
     process.exit(1);
 }
 
