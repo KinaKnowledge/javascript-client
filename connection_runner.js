@@ -66,6 +66,7 @@ console.log("Connection Runner: server: "+config.server_url);
 var senders=[];
 var receivers=[];
 
+var countDown = 10;
 
 var private_key = fs.readFileSync(config.private_key_file,'utf8');
 var pass_phrase = fs.readFileSync(config.pass_phrase_file,'utf8');
@@ -125,24 +126,27 @@ var connection = new kina.KinaConnection(config.server_url,config.user_name, con
             // 
             var r=new receiver.Receiver(c,channel.name,channel.grouping_id,channel.receive_directory,channel.packaging_profile,credentials);
             setInterval(function() {
-                r.getReadyTransactions(
-                    function(transactionSet) {
-                        r.processReadyTransactions(null,function(saveDirectory, trx) {
-                                // this is the code that is being executed once the file has been unzipped and stored on disk
-                                // If the return code is non-null, will be saved in kina as the archival_uri portion of the transaction object
+                if (r.moreAvailable || countDown <= 0) {
+                    countDown = 30;
+                    r.getReadyTransactions(
+                        function (transactionSet) {
 
-                                console.log("File save location:"+saveDirectory);
-                                console.log("->"+trx.id+": "+trx.document_type_name);
-                                return "Archival URI"
-                        },
-                        function(error) {
-                            console.error("An error occurred");
-                            console.dir(error);
+                            r.processReadyTransactions(null, function (saveDirectory, trx) {
+                                    // stub code - process the received document and transaction data as needed
+                                    console.log("Received transaction: " + trx.id + " :" + trx.document_type_name + ": into " + saveDirectory + path.sep + trx.zip_entry);
+                                    return null;  // don't send anything back to Kina
+                                },
+                                function (error) {
+                                    console.error("An error occurred");
+                                    console.dir(error);
+                                });
+
+                        }, function (error) {
+                            console.log("received an error: " + error);
                         });
-                    }, function(error) {
-                        console.log("received an error: "+error);
-                    });
-            },60000);   // check every minute.  High request rates get throttled!
+                }
+                countDown--;
+            }, 1000);
             receivers.push(r);
         }
 
@@ -155,7 +159,7 @@ var connection = new kina.KinaConnection(config.server_url,config.user_name, con
     console.log("Connection Runner: "+l);
 }, false);
 
-
+// report every minute on conditions
 
 setInterval(function() {
     for (var i in senders) {

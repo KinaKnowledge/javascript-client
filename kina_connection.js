@@ -114,12 +114,12 @@ KinaConnection.prototype.login=function() {
         email: self.user_id,
         password: self.password,
     };
-    self.serverRequest('/client_login',req,function(d) {
+    self.serverRequest('/client_login', req, function (data) {
         var req = {};
         self.serverRequest('/upload_profiles',req,function(up) {
                 self.uploadProfilesData=JSON.parse(up.profiles)||{};
                 self.connected=true;
-                self.completeFunction(self,d);
+                self.completeFunction(self, data);
             },
             function(e) {
                 errorFunction(e);

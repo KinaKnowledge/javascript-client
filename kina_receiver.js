@@ -141,6 +141,7 @@ Receiver.prototype.setArchivalURI = function(id,uri) {
             self.log("the archive URI for "+id+" set to: "+uri);
         }
     },function(error) {
+        self.errorCount += 1;
         self.log("The error is: "+error);
     });
 };
@@ -212,6 +213,7 @@ Receiver.prototype.processReadyTransactions = function(onZipReceived, onEachFile
     },
     function(error) {
         console.log(error);
+        self.errorCount += 1;
         self.busy=false;
     });
 
@@ -242,17 +244,17 @@ Receiver.prototype.getSpoolFile = function(spoolFile,onZipReceived,onEachFile,er
         options
         , function (error, response, body) {
             if (error != null) {
+                self.errorCount += 1;
                 errorFunction(error);
             }
             if (response.statusCode != 200) {
                 errorFunction(error);
             } else {
                 // make a zip with the body
-                //workspace.mainWindow.webContents.send('recvFile', "Zip Contents", transaction_set.length, "OK", "Zip");
-                // here we go !
                 try {
                     var zip = JSZip(body);
                 } catch (e) {
+                    self.errorCount += 1;
                     errorFunction(e);
                     return;
                 }
@@ -319,6 +321,7 @@ Receiver.prototype.getReadyTransactions = function(completeFunction,errorFunctio
         },
         function(e) {
             self.busy=false;
+            self.errorCount++;
             errorFunction(e);
         },'get');
 

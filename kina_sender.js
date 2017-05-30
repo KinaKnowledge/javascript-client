@@ -194,6 +194,7 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
                     self.processingFile=null;
                     self.log("retrying..."+fileName);
                     fs.appendFile(self.watchFile, 'a', function (err) {
+                        self.errorCount++;
                         if (err != null) self.log("an error occurred touching .watch: " + err);
                     });
                 },1500);
