@@ -119,6 +119,7 @@ KinaConnection.prototype.login=function() {
         self.serverRequest('/upload_profiles',req,function(up) {
                 self.uploadProfilesData=JSON.parse(up.profiles)||{};
                 self.connected=true;
+                self.password = '';
                 self.completeFunction(self, data);
             },
             function(e) {
@@ -126,6 +127,20 @@ KinaConnection.prototype.login=function() {
             },'get');
 
     },self.errorFunction);
+};
+
+
+KinaConnection.prototype.logout = function (successFunction, errorFunction) {
+    var self = this;
+    var req = {};
+    self.serverRequest('/client_logout', req, function (data) {
+        if (data.rval == 'OK') {
+            self.connected = false;
+            successFunction(data);
+        } else {
+            errorFunction(data);
+        }
+    }, errorFunction);
 };
 
 // receives the uploadProfiles from the Kina server that are available for use by
