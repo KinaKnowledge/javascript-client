@@ -123,7 +123,7 @@ Typically, your server URL will be `https://fs.kinadata.com`.  If your are runni
 Once you have connected, then you are ready to send and receive.  For sending, use a `Sender` object.  You will need to provide a current connection object, an arbitrary name for the channel to identify itself for logging purposes, the directory to monitor and an appropriate upload profile.  The connection object has a lookup method that allows you to provide an upload profile name, and it will provide the appropriate hash object required for the `Sender` object.
 
 
-###Sending
+### Sending
 
 2.  To **send** documents to Kina, create a `Sender` object:
 
@@ -152,7 +152,7 @@ sender.start();
 Files will start transferring to the server from the watched directory if there are any files present in it.  Messages that need to be logged or examined will be sent to the configured connection logger function provided in step 1. The error function will be called when errors in connectivity, or server response are encountered.
 
 
-###Receiving
+### Receiving
 
 3.  To **receive** documents from Kina, create a `Receiver` object.  First, you'll need create a credentials object with the private key and pass phrase.  These are the contents of the zipped credential file.  See dependencies above for more information on creating these.
 
