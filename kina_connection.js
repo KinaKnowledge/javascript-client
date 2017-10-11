@@ -132,7 +132,9 @@ KinaConnection.prototype.login=function() {
 
 KinaConnection.prototype.logout = function (successFunction, errorFunction) {
     var self = this;
-    var req = {};
+    var req = {
+        email: self.user_id
+    };
     self.serverRequest('/client_logout', req, function (data) {
         if (data.rval == 'OK') {
             self.connected = false;
