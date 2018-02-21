@@ -170,12 +170,12 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
             "filename": path.win32.basename(fileName),
             "transaction_type": transactionType,
             "transaction_values": JSON.stringify(tvalues),
-            "content_type": mime.lookup(fileName),
+            "content_type": mime.getType(fileName),
             "file0": {
                 value: fs.createReadStream(fileName),
                 options: {
                     filename: fileName,
-                    contentType: mime.lookup(fileName)
+                    contentType: mime.getType(fileName)
                 }
             }
         },
@@ -248,5 +248,45 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
     );
 
 };
+
+exports.sendSingleFile = function (connection, filename, uploadProfile, completeFunction, errorFunction) {
+    var tvalues = uploadProfile.values;
+    tvalues["source_uri"] = filename;
+
+    var options = {
+        uri: connection.server + "/document_types/process_document",
+        method: "POST",
+        json: true,
+        formData: {
+            "authenticity_token": connection.auth_token,
+            "filename": path.win32.basename(filename),
+            "transaction_type": uploadProfile.transaction_type,
+            "transaction_values": JSON.stringify(tvalues),
+            "content_type": mime.getType(filename),
+            "file0": {
+                value: fs.createReadStream(filename),
+                options: {
+                    filename: filename,
+                    contentType: mime.getType(filename)
+                }
+            }
+        },
+        jar: true
+    };
+    request.post(
+        options,
+        function (error, response, body) {
+            if (error != null) {
+                errorFunction(error);
+                return;
+            }
+            let b = body;
+            self.processingFile = null;
+            completeFunction(b, filename);
+        }
+    );
+
+};
+
 
 exports.Sender=Sender;
