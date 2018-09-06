@@ -160,6 +160,7 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
     self=this;
     var tvalues = this.uploadProfile.values;
     tvalues["source_uri"]=fileName;
+    tvalues["inbox"]=this.uploadProfile.name
 
     var options = {
         uri: self.kinaConnection.server + "/document_types/process_document",
@@ -168,6 +169,7 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
         formData: {
             "authenticity_token": self.kinaConnection.auth_token,
             "filename": path.win32.basename(fileName),
+            "inbox": this.uploadProfile.name,
             "transaction_type": transactionType,
             "transaction_values": JSON.stringify(tvalues),
             "content_type": mime.getType(fileName),

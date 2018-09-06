@@ -44,7 +44,7 @@ if (process.argv.length<3) {
     console.log('   "channels": [');
     console.log('      {');
     console.log('         "name": "sender_1",');
-    console.log('         "upload_profile": "From Scanner",');
+    console.log('         "inbox": "From Scanner",');
     console.log('         "send_directory": "/path/to/local/sending/directory"');
     console.log('      },');
     console.log('      {');
@@ -101,8 +101,8 @@ var connection = new kina.KinaConnection(config.server_url,config.user_name, con
     var channels = config.channels;
     for (var index in channels) {
         var channel=channels[index];
-        if (channel.upload_profile != null) {
-            var s=new sender.Sender(c,channel.name,channel.send_directory,c.getUploadProfile(channel.upload_profile),
+        if (channel.inbox!= null) {
+            var s=new sender.Sender(c,channel.name,channel.send_directory,c.getUploadProfile(channel.inbox),
                 function(b,filename) {
                     try {
 
