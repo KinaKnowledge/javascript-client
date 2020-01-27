@@ -1,0 +1,33 @@
+{
+  "name": "kina-javascript-client",
+  "version": "1.0.0",
+  "description": "Facilitates sending and receiving with a Kina processing server",
+  "main": "connection_runner.js",
+  "dependencies": {
+    "mime": "^2.4.4",
+    "mkdirp": "^0.5.1",
+    "node-zip": "^1.1.1",
+    "request": "^2.88.0",
+    "temp": "^0.9.1",
+    "node-mime": "^1.0.0",
+    "pretty-bytes": "^5.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KinaKnowledge/javascript-client.git"
+  },
+  "keywords": [
+    "kina",
+    "client"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KinaKnowledge/javascript-client/issues"
+  },
+  "homepage": "https://github.com/KinaKnowledge/javascript-client#readme"
+}
