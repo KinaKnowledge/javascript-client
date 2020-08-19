@@ -124,7 +124,7 @@ Sender.prototype.start = function() {
         }
         me.processingFile = fileName;
         //workspace.mainWindow.webContents.send('sendFile', si.watchDir+path.sep+fileName);
-        me.sendFile(me.watchDirectory + path.sep + fileName, me.uploadProfile.transaction_type, me.watchDirectory);
+        me.sendFile(me.watchDirectory + path.sep + fileName, me.uploadProfile.target_flow_name, me.watchDirectory);
         // upload the file
     });
     // now tickle the directory
@@ -160,8 +160,7 @@ Sender.prototype.sendFile = function(fileName, transactionType) {
     self=this;
     var tvalues = this.uploadProfile.values;
     tvalues["source_uri"]=fileName;
-    tvalues["inbox"]=this.uploadProfile.name
-
+    tvalues["inbox"]=this.uploadProfile.name   
     var options = {
         uri: self.kinaConnection.server + "/document_types/process_document",
         method: "POST",

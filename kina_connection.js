@@ -90,7 +90,6 @@ function KinaConnection(server_url,user_id, password, completeFunction, errorFun
 // returns the profile data for the specified profile name
 
 KinaConnection.prototype.getUploadProfile = function(uploadProfileName) {
-
     return this.uploadProfilesData[uploadProfileName];
 };
 
