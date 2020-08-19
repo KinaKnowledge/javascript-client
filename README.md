@@ -53,7 +53,7 @@ Connection Runner: please provide a json file as an argument that contains the f
     "channels": [
       {
         "name": "sender_1",
-        "upload_profile": "From Scanner",
+        "inbox": "From Scanner",
         "send_directory": "/path/to/local/sending/directory"
       },
       {
@@ -73,6 +73,8 @@ $ chmod 600 my_config.conf
 ```
 
 In Windows, right click and choose Properties, and visit the Security tab to set the permissions appropriately.
+
+By default, once a file is successfully transfered, the script moves the file to a `sent` folder that is located underneath the sending folder.  This default action in the file `connection_runner.js` can be altered to perform post transfer actions by modifying the arguments provided to the Sender constructor.
 
 ### Starting and Stopping
 
